@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import { TextField, Button, Container, Typography, Grid } from '@mui/material';
 import StockDisplay from './components/StockDisplay';
+require('dotenv').config();
 import axios from 'axios';
 
 const containerStyle = {

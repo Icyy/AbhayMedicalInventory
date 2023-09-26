@@ -2,7 +2,7 @@ import {MongoClient} from "mongodb"
 import { NextResponse } from "next/server";
 
 // Replace the uri string with your connection string.
-const uri = "mongodb+srv://admin:ih5FxCw3aIBhpkY1@abhaymedical.razbu2k.mongodb.net/";
+const uri = process.env.MONGODB_URI || '';
 
 const client = new MongoClient(uri);
 

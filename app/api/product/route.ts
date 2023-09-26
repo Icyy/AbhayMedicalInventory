@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       const product = await inventory.insertOne(body); 
       return NextResponse.json({product, statusCode: 200});
     }catch{
-      console.log('error')
+      console.log('error ocurred')
     }
       
     // } finally {
