@@ -72,7 +72,24 @@ const searchContainerStyle = {
   const StockDisplay = ({products}: StockDisplayProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
 
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get("/api/category");
+      if (response.status === 200) {
+        console.log(response.data.body);
+        setCategories(response.data.body);
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+    console.log(categories)
+  },[]);
 
   // Function to filter stock based on search and category
   const filteredStock = products.filter((medicine) => {
@@ -92,6 +109,7 @@ const searchContainerStyle = {
         setSearchQuery={setSearchQuery}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
+        categories = {categories}
       />
       <Paper elevation={3}>
         <Table>
@@ -108,7 +126,7 @@ const searchContainerStyle = {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((medicine) => (
+            {filteredStock.map((medicine) => (
               <TableRow key={medicine._id}>
                 <TableCell>{medicine.medicineName}</TableCell>
                 <TableCell>{medicine.manufacturer}</TableCell>

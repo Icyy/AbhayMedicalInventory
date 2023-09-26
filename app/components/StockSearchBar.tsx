@@ -1,15 +1,20 @@
 "use client"
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { TextField, Grid, Select, MenuItem } from '@mui/material';
+import axios from 'axios';
+
 interface StockSearchBarProps {
     searchQuery: string;
     setSearchQuery: (query: string) => void;
     selectedCategory: string;
     setSelectedCategory: (category: string) => void;
+    categories: Array<string>;
   }
   
-  const StockSearchBar: React.FC<StockSearchBarProps> = ({ searchQuery, setSearchQuery, selectedCategory, setSelectedCategory }) => {
-  return (
+  const StockSearchBar: React.FC<StockSearchBarProps> = ({ searchQuery, setSearchQuery, categories ,selectedCategory, setSelectedCategory }) => {
+    
+  
+    return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6}>
         <TextField
@@ -28,10 +33,12 @@ interface StockSearchBarProps {
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <MenuItem value="">All</MenuItem>
-          <MenuItem value="Category 1">Category 1</MenuItem>
-          <MenuItem value="Category 2">Category 2</MenuItem>
-          {/* Add more categories as needed */}
+          <MenuItem value="">All Categories</MenuItem>
+        {categories.map((category) => (
+          <MenuItem key={category} value={category}>
+            {category}
+          </MenuItem>
+        ))}
         </Select>
       </Grid>
     </Grid>
