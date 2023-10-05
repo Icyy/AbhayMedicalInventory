@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['medicines', 'categories', 'manufacturers', 'invoices', 'sales report'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
@@ -118,6 +118,7 @@ function Header() {
             {pages.map((page) => (
               <Button
                 key={page}
+                href={`/${page}/add`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -126,7 +127,7 @@ function Header() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -154,7 +155,7 @@ function Header() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          {/* </Box> */} 
         </Toolbar>
       </Container>
     </AppBar>
