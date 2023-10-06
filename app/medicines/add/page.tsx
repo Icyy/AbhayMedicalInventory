@@ -22,6 +22,10 @@ import NavBar from '@/app/components/NavBar';
     name: string;
     status: string;
   }
+  interface CatArr {
+    _id: string;
+    name: string;
+  }
 
 const page = () => {
      // Define state variables to store input values
@@ -39,6 +43,7 @@ const page = () => {
   const [batchNumber, setBatchNumber] = useState('');
 
   const [manufacturersList, setManufacturersList] = useState<ManuArr[]>([]);
+  const [categoryList, setCategoryList] = useState<CatArr[]>([]);
 
 
     // Function to handle form submission
@@ -127,6 +132,20 @@ const page = () => {
             console.error('Error fetching manufacturers:', error);
           });
       }, []);
+      useEffect(() => {
+        // Fetch manufacturers list from your backend API
+        axios.get('/api/categories')
+          .then((response) => {
+            if (response.status === 200) {
+              setCategoryList(response.data.body);
+            } else {
+              console.error('Failed to fetch manufacturers:', response.statusText);
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching manufacturers:', error);
+          });
+      }, []);
 
   return (
     <div>
@@ -154,14 +173,24 @@ const page = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label="Category"
-            variant="outlined"
-            fullWidth
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-        </Grid>
+            <Select
+              label="Category"
+              variant="outlined"
+              fullWidth
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {categoryList.map((cate) => (
+                <MenuItem key={cate._id} value={cate.name}>
+                  {cate.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
         <Grid item xs={6}>
             <Select
               label="Manufacturer"

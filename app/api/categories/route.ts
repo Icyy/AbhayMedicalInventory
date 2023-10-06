@@ -22,10 +22,12 @@ export async function GET(request: Request) {
 
     try {
       const database = client.db('stock');
-      const inventory = database.collection('inventory');
+      const inventory = database.collection('categories');
   
       // Query for a movie that has the title 'Back to the Future'
-      const categories = await inventory.distinct('category');
+      const distinctNames = await inventory.distinct('name');
+      const categories = distinctNames.map(name => ({ name }));
+
       return NextResponse.json({ 
         statusCode: 200,
         body:  categories ,
@@ -34,6 +36,29 @@ export async function GET(request: Request) {
     }catch{
       console.log('error')
     }
+    // } finally {
+    //   // Ensures that the client will close when you finish/error
+    //   await client.close();
+    // }
+  
+  
+  }
+
+  export async function POST(request: Request) {
+
+    let body:any = await request.json(); 
+    try {
+      const database = client.db('stock');
+      const inventory = database.collection('categories');
+  
+      // Query for a movie that has the title 'Back to the Future'
+    //   const query = {storeLocation:"Denver"};
+      const category = await inventory.insertOne(body); 
+      return NextResponse.json({category, statusCode: 200});
+    }catch{
+      console.log('error ocurred')
+    }
+      
     // } finally {
     //   // Ensures that the client will close when you finish/error
     //   await client.close();
