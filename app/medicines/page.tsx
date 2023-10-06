@@ -41,8 +41,6 @@ const page = () => {
   },[]);
   return (
     <>
-    <NavBar />
-      
       <button style={{float: 'right',marginTop: '2%',marginRight: "1.5%"}} className="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" >
           <Link href={`/medicines/add`}>
             Add Medicines

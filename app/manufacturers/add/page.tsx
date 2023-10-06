@@ -42,28 +42,16 @@ const page = () => {
 
   return (
     <>
-    <NavBar />
     <div className="container mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-semibold mb-6">Add Manufacturer</h1>
       <form onSubmit={handleFormSubmit}>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="manufacturerName" className="block text-sm font-medium text-gray-900 dark:text-white">
-              Manufacturer Name
-            </label>
-            <input
-              type="text"
-              id="manufacturerName"
-              name="manufacturerName"
-              value={manufacturerName}
-              onChange={(e) => setManufacturerName(e.target.value)}
-              className="input-style"
-              placeholder="Enter manufacturer name"
-              required
-            />
+            <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray">Manufacturer name</label>
+            <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name" required />
           </div>
           <div>
-            <label htmlFor="manufacturerStatus" className="block text-sm font-medium text-gray-900 dark:text-white">
+            <label htmlFor="manufacturerStatus" className="block text-sm font-medium text-gray-900 dark:text-gray mb-4">
               Manufacturer Status
             </label>
             <select

@@ -83,7 +83,7 @@ const StockDisplay = ({ products }: StockDisplayProps) => {
 
   useEffect(() => {
     fetchCategories();
-    console.log(categories);
+    console.log(products);
   }, []);
 
   // Function to filter stock based on search and category
@@ -107,73 +107,52 @@ const StockDisplay = ({ products }: StockDisplayProps) => {
         categories={categories}
       />
       <Paper elevation={3}>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative overflow-x-auto overflow-y-scroll mt-6">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-950 uppercase dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-gray-50 dark:bg-gray-800"
-                >
-                  Name
+                <th scope="col" className="px-6 py-3">
+                  Medicine Name
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Manufacturer
                 </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-gray-50 dark:bg-gray-800"
-                >
+                <th scope="col" className="px-6 py-3">
                   Manufacturing Date
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-8 py-3 whitespace-nowrap">
                   Expiry Date
                 </th>
-                <th scope="col" className="px-6 py-4">
+                <th scope="col" className="px-6 py-3">
                   Batch Number
                 </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3  bg-gray-50 dark:bg-gray-800"
-                >
+                <th scope="col" className="px-6 py-3">
                   Selling Price
                 </th>
-                <th scope="col" className="px-6 py-4">
-                  Quantity
+                <th scope="col" className="px-6 py-3">
+                  Quantity 
                 </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3  bg-gray-50 dark:bg-gray-800"
-                >
+                <th scope="col" className="px-6 py-3">
                   Category
                 </th>
               </tr>
             </thead>
             <tbody>
               {filteredStock.map((medicine) => (
-                <tr
-                  key={medicine._id}
-                  className="border-b border-gray-200 dark:border-gray-700"
-                >
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {medicine.medicineName}
                   </th>
+                  <td className="px-6 py-4">{medicine.manufacturer}</td>
                   <td className="px-6 py-4">{medicine.manufacDate}</td>
-                  <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                    {medicine.expiryDate}
-                  </td>
+                  <td className="px-6 py-4">{medicine.expiryDate}</td>
                   <td className="px-6 py-4">{medicine.batchNumber}</td>
                   <td className="px-6 py-4">{medicine.sellingPrice}</td>
-                  <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                    {medicine.quantityInStock}
-                  </td>
+                  <td className="px-6 py-4">{medicine.quantityInStock}</td>
                   <td className="px-6 py-4">{medicine.category}</td>
-                  <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                    {medicine.manufacturer}
-                  </td>
                 </tr>
               ))}
             </tbody>

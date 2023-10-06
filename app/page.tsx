@@ -54,13 +54,11 @@ export default function Home() {
 
   return (
     <>
-    {/* <Layout> */}
-      {/* <Header /> */}
-      <NavBar />
+
       <Container style={containerStyle}>
         <StockDisplay products={products}/>
       </Container>
-    {/* </Layout> */}
+
     </>
     
   );

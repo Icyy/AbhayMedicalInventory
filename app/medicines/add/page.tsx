@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Container, Typography, Grid } from '@mui/material';
+import { TextField, Button, Container, Typography, Grid, Select, MenuItem } from '@mui/material';
 require('dotenv').config();
 import axios from 'axios';
 import Layout from '@/app/components/Layout';
@@ -17,6 +17,11 @@ import NavBar from '@/app/components/NavBar';
     },
   };
 
+  interface ManuArr {
+    _id: string;
+    name: string;
+    status: string;
+  }
 
 const page = () => {
      // Define state variables to store input values
@@ -33,7 +38,7 @@ const page = () => {
   const [supplierInfo, setSupplierInfo] = useState('');
   const [batchNumber, setBatchNumber] = useState('');
 
-  
+  const [manufacturersList, setManufacturersList] = useState<ManuArr[]>([]);
 
 
     // Function to handle form submission
@@ -108,10 +113,23 @@ const page = () => {
         }
       }
 
+      useEffect(() => {
+        // Fetch manufacturers list from your backend API
+        axios.get('/api/manufacturers')
+          .then((response) => {
+            if (response.status === 200) {
+              setManufacturersList(response.data.body);
+            } else {
+              console.error('Failed to fetch manufacturers:', response.statusText);
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching manufacturers:', error);
+          });
+      }, []);
+
   return (
     <div>
-    <NavBar />
-  
     <>
     <Typography variant="h4">Add Medicine</Typography>
     <form onSubmit={handleSubmit}>
@@ -145,14 +163,24 @@ const page = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label="Manufacturer"
-            variant="outlined"
-            fullWidth
-            value={manufacturer}
-            onChange={(e) => setManufacturer(e.target.value)}
-          />
-        </Grid>
+            <Select
+              label="Manufacturer"
+              variant="outlined"
+              fullWidth
+              value={manufacturer}
+              onChange={(e) => setManufacturer(e.target.value)}
+              required
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {manufacturersList.map((manufacturer) => (
+                <MenuItem key={manufacturer._id} value={manufacturer.name}>
+                  {manufacturer.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
         <Grid item xs={6}>
           <TextField
             label="Quantity in Stock"
